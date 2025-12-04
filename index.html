@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>EntryDUT User Finder</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TEAMKRIS가 만든 엔트리 유저 찾기 페이지!</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="header">
+    <img src="말하는 앞모습_1.svg" class="logo" alt="logo">
+    <h1>TEAMKRIS가 만든 엔트리 유저 찾기 페이지!</h1>
+  </header>
 
-<header class="header">
-  <img src="말하는 앞모습_1.svg" class="logo" alt="logo">
-  <h1>EntryDUT User Finder</h1>
-</header>
+  <div class="search-box">
+    <input type="text" id="usernameInput" placeholder="엔트리 닉네임 입력..." autocomplete="off">
+    <button id="searchButton">검색</button>
+  </div>
 
-<div class="search-box">
-  <input type="text" id="usernameInput" placeholder="엔트리 닉네임 입력...">
-  <button id="searchButton">검색</button>
-</div>
+  <div id="result"></div>
 
-<div id="result"></div>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
