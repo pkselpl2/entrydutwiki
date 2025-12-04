@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>TEAMKRIS가 만든 엔트리 유저 찾기 페이지!</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EntryDUT User Finder</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="header">
+    <img src="logo.png" class="logo" alt="logo">
+    <h1>EntryDUT User Finder</h1>
+  </header>
 
-<header class="header">
-  <img src="말하는 앞모습_1.svg" class="logo" alt="logo">
-  <h1>TEAMKRIS가 만든 엔트리 유저 찾기 페이지!</h1>
-</header>
+  <div class="search-box">
+    <input type="text" id="usernameInput" placeholder="엔트리 닉네임 입력..." autocomplete="off">
+    <button id="searchButton">검색</button>
+  </div>
 
-<div class="search-box">
-  <input type="text" id="usernameInput" placeholder="엔트리 닉네임 입력...">
-  <button id="searchButton">검색</button>
-</div>
+  <div id="result"></div>
 
-<div id="result"></div>
-
-<script src="app.js"></script>
+  <!-- app.js는 body 끝에 불러와야 DOM 요소 사용 가능 -->
+  <script src="app.js"></script>
 </body>
 </html>
