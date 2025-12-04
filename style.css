@@ -1,80 +1,127 @@
-:root{
-  --bg:#f7f7fb;
-  --card:#ffffff;
-  --accent:#ffbf00;
-  --muted:#666;
+/* 전체 기본 설정 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', Arial, sans-serif;
+    background: #f3f4f6;
 }
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background:var(--bg);
-  color:#111;
-}
-.header{
-  background:linear-gradient(90deg,#ffd94d, #ffbf00);
-  padding:24px;
-  text-align:center;
-  color:#111;
-}
-.header .subtitle{ margin:6px 0 0; font-size:14px; color:var(--muted); }
 
-.container{
-  max-width:980px;
-  margin:20px auto;
-  padding:12px;
+/* 상단 제목 */
+header {
+    background: #4f46e5;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
 }
-.controls{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:16px;
+
+/* 검색 박스 */
+.search-box {
+    margin: 25px auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 700px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
-.controls input[type="search"]{
-  flex:1 1 360px;
-  padding:10px 12px;
-  border-radius:8px;
-  border:1px solid #ddd;
-  background:#fff;
+
+.search-box input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 2px solid #d1d5db;
+    border-radius: 10px;
+    outline: none;
+    transition: 0.2s;
 }
-.controls select, .controls button{
-  padding:10px 12px;
-  border-radius:8px;
-  border:1px solid #ddd;
-  background:#fff;
+
+.search-box input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79,70,229,0.2);
 }
-.results{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:12px;
+
+.search-box button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 12px;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: 0.2s;
+    cursor: pointer;
 }
-.card{
-  background:var(--card);
-  border-radius:12px;
-  padding:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.06);
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+
+.search-box button:hover {
+    background: #4338ca;
 }
-.card .title{
-  font-weight:700;
-  font-size:16px;
+
+/* 결과 카드 */
+.result-card {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 700px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
 }
-.card .meta{ color:var(--muted); font-size:13px; }
-.tags{ display:flex; gap:6px; flex-wrap:wrap; margin-top:6px;}
-.tag{ background:#f0f0f0; padding:4px 8px; border-radius:999px; font-size:12px; color:#333;}
-.actions{ margin-top:auto; display:flex; gap:8px; }
-.btn{
-  text-decoration:none;
-  padding:8px 10px;
-  border-radius:8px;
-  border:1px solid #ddd;
-  background:#fff;
-  font-size:13px;
+
+/* 프로필 이미지 */
+.profile-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 14px;
+    background: #e5e7eb;
+    background-size: cover;
+    background-position: center;
 }
-.empty{ text-align:center; color:var(--muted); padding:40px 10px; }
-.footer{ text-align:center; color:var(--muted); padding:18px 6px; font-size:13px;}
-@media (max-width:520px){
-  .controls{flex-direction:column;}
+
+/* 유저 정보 텍스트 */
+.user-info {
+    flex: 1;
+}
+
+.user-info h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.user-info p {
+    margin: 3px 0;
+    color: #374151;
+}
+
+/* 로딩 표시 */
+.loading {
+    text-align: center;
+    font-size: 18px;
+    color: #4f46e5;
+    margin-top: 20px;
+}
+
+/* 오류 표시 */
+.error {
+    text-align: center;
+    color: #dc2626;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+/* 모바일 대응 */
+@media (max-width: 480px) {
+    .result-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-img {
+        margin-bottom: 10px;
+    }
 }
