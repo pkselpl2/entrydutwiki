@@ -1,48 +1,46 @@
-async function checkUser() {
-    const url = document.getElementById("targetUrl").value;
-    const result = document.getElementById("result");
+document.getElementById("searchButton").addEventListener("click", () => {
+  const username = document.getElementById("usernameInput").value.trim();
+  if (username === "") {
+    alert("닉네임을 입력하세요!");
+    return;
+  }
+  fetchUser(username);
+});
 
-    if (!url.includes("playentry.org")) {
-        result.innerHTML = "<b>엔트리 링크를 입력하세요.</b>";
-        return;
+async function fetchUser(username) {
+  const resultBox = document.getElementById("result");
+  resultBox.innerHTML = "<p>⏳ 불러오는 중...</p>";
+
+  try {
+    const res = await fetch(`https://playentry.org/api/user?username=${username}`);
+
+    if (!res.ok) {
+      resultBox.innerHTML = "<p>❌ 유저를 찾을 수 없습니다.</p>";
+      return;
     }
 
-    // CORS 프록시 사용 (GitHub Pages에서 동작)
-    const proxy = "https://corsproxy.io/?";
+    const user = await res.json();
 
-    try {
-        const html = await fetch(proxy + url).then(res => res.text());
+    resultBox.innerHTML = `
+      <div class="card">
+        <img src="${user.profileImage || ''}" class="avatar" alt="프로필 이미지">
+        <h2>${user.nickname}</h2>
+        <p style="color:#666">@${user.username}</p>
 
-        // 닉네임 추출
-        const nickname = html.match(/"nickname":"(.*?)"/)?.[1] || "없음";
+        <div class="stats">
+          <div><b>${user.projectsLength}</b><br>작품</div>
+          <div><b>${user.communitiesLength}</b><br>커뮤니티</div>
+          <div><b>${user.studiesLength}</b><br>스터디</div>
+        </div>
 
-        // 프로필 이미지
-        const profile = html.match(/"profileImage":"(.*?)"/)?.[1] || "없음";
-
-        // 배경 이미지
-        const background = html.match(/"coverImage":"(.*?)"/)?.[1] || "없음";
-
-        // 작품 수
-        const workCount = html.match(/"projectCount":(\d+)/)?.[1] || "0";
-
-        // 팔로워, 팔로잉
-        const follower = html.match(/"followerCount":(\d+)/)?.[1] || "0";
-        const following = html.match(/"followingCount":(\d+)/)?.[1] || "0";
-
-        result.innerHTML = `
-            <h3>결과</h3>
-            닉네임: ${nickname}<br>
-            작품 수: ${workCount}<br>
-            팔로워: ${follower}<br>
-            팔로잉: ${following}<br><br>
-
-            <b>프사:</b><br>
-            <img src="https://playentry.org${profile}" width="120"><br><br>
-
-            <b>베사:</b><br>
-            <img src="https://playentry.org${background}" width="250">
-        `;
-    } catch (err) {
-        result.innerHTML = "❌ 오류 발생: 엔트리 서버가 차단 중일 수 있음.";
-    }
+        <div class="stats" style="margin-top:20px;">
+          <div><b>${user.followers}</b><br>팔로워</div>
+          <div><b>${user.followings}</b><br>팔로잉</div>
+          <div><b>${user.bookmarksLength ?? 0}</b><br>북마크</div>
+        </div>
+      </div>
+    `;
+  } catch (e) {
+    resultBox.innerHTML = "<p>⚠ 오류가 발생했습니다.</p>";
+  }
 }
