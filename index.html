@@ -1,12 +1,44 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>내 첫 웹사이트</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TEAMKRIS이 만든 엔트리 유저 찾기</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-    <h1>안녕하세요!</h1>
-    <p>GitHub Pages에서 만든 첫 웹입니다.</p>
+  <header class="header">
+    <h1>엔트리 유저 찾기</h1>
+    <p class="subtitle">엔트리 사용자 & 프로젝트를 검색하고 필터링하세요.</p>
+  </header>
+
+  <main class="container">
+    <section class="controls">
+      <input id="query" type="search" placeholder="사용자명 / 프로젝트명 / 태그 검색..." autocomplete="off"/>
+      <select id="tagFilter">
+        <option value="">태그 전체</option>
+      </select>
+      <select id="sortBy">
+        <option value="recent">최근 추가순</option>
+        <option value="name">이름순</option>
+        <option value="projects">프로젝트수</option>
+      </select>
+      <button id="resetBtn">초기화</button>
+    </section>
+
+    <section id="results" class="results">
+      <!-- 카드들이 여기 렌더링 됩니다 -->
+    </section>
+
+    <section id="empty" class="empty" hidden>
+      결과가 없습니다. 다른 키워드로 다시 시도해보세요.
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>데이터는 data/users.json에서 관리됩니다. 사용자가 직접 추가할 수 있도록 링크를 제공하세요.</small>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
