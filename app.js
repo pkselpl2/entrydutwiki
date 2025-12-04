@@ -1,45 +1,77 @@
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("app.js 정상 로드됨");
+// ─────────────────────────────────────
+// 1. 프로필 정보 불러오기
+// ─────────────────────────────────────
 
-  const searchBtn = document.getElementById("searchButton");
-  const input = document.getElementById("usernameInput");
+// 실제 엔트리 API는 없으므로, 나중에 Proxy 서버를 넣을 수 있게 URL만 분리
+const ENTRY_PROXY = "https://your-proxy-server.com/user/"; 
+// ↑ 나중에 너가 만들 Proxy 서버 주소 들어갈 자리
 
-  searchBtn.addEventListener("click", () => {
-    const username = input.value.trim();
-    if (!username) {
-      alert("닉네임을 입력해주세요!");
-      return;
+async function loadUser(username) {
+    try {
+        // --- 실제 요청 URL 만들기 ---
+        const url = ENTRY_PROXY + username;
+
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("서버 응답 오류");
+        }
+
+        const data = await response.json();
+
+        // data 구조 예시(Proxy에서 이렇게 보내주면 됨)
+        // {
+        //   "username": "TEAMKRIS_offcial",
+        //   "works": 12,
+        //   "followers": 20,
+        //   "followings": 3,
+        //   "profileUrl": "https://playentry.org/profile/xxx"
+        // }
+
+        // HTML 요소 채우기
+        document.getElementById("username").innerText = data.username;
+        document.getElementById("workCount").innerText = data.works;
+        document.getElementById("followerCount").innerText = data.followers;
+        document.getElementById("followingCount").innerText = data.followings;
+
+        const linkBtn = document.getElementById("profileLink");
+        linkBtn.href = data.profileUrl;
+        linkBtn.style.display = "inline-block";
+
+    } catch (err) {
+        console.error(err);
+        alert("⚠ 서버와 통신할 수 없습니다. Proxy 서버가 필요합니다.");
     }
-    fetchUser(username);
-  });
+}
+
+
+// ─────────────────────────────────────
+// 2. 검색 기능 (검색창에 ID 입력 → 자동 로드)
+// ─────────────────────────────────────
+const searchInput = document.getElementById("search");
+const searchBtn = document.getElementById("searchBtn");
+
+searchBtn.addEventListener("click", () => {
+    const username = searchInput.value.trim();
+    if (username === "") {
+        alert("엔트리 닉네임을 입력하세요!");
+        return;
+    }
+
+    loadUser(username);
 });
 
-/**
- * 엔트리 서버는 CORS 때문에 브라우저에서 직접 정보를 가져올 수 없음.
- * 그래서 현재는 표시용 UI만 만들고,
- * 서버 프록시 쓰면 실제 데이터 연동 가능.
- */
-function fetchUser(username) {
-  const resultBox = document.getElementById("result");
 
-  // 엔트리 프로필 URL (유저 ID는 없으므로 닉네임만 표시)
-  const fakeProfileUrl = `https://playentry.org/profile/${username}`;
+// 엔터키로 검색
+searchInput.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+        searchBtn.click();
+    }
+});
 
-  // 출력되는 UI
-  resultBox.innerHTML = `
-    <div class="card">
-      <div class="pfp"></div>
-      <h2>${username}</h2>
 
-      <div class="info">
-        <p><strong>작품 수:</strong> (서버 필요)</p>
-        <p><strong>팔로워:</strong> (서버 필요)</p>
-        <p><strong>팔로잉:</strong> (서버 필요)</p>
-      </div>
+// ─────────────────────────────────────
+// 3. 첫 기본 유저 자동 로딩 (선택)
+// ─────────────────────────────────────
 
-      <a class="goto" href="${fakeProfileUrl}" target="_blank">
-        엔트리 프로필 방문하기
-      </a>
-    </div>
-  `;
-}
+// loadUser("TEAMKRIS_offcial");
+
