@@ -1,74 +1,45 @@
-document.getElementById("searchButton").addEventListener("click", () => {
-  const raw = document.getElementById("usernameInput").value.trim();
-  if (raw === "") {
-    alert("닉네임 또는 프로필 URL을 입력하세요!");
-    return;
-  }
-  searchUser(raw);
-});
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("app.js 정상 로드됨");
 
-document.getElementById("usernameInput").addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    document.getElementById("searchButton").click();
-  }
-});
+  const searchBtn = document.getElementById("searchButton");
+  const input = document.getElementById("usernameInput");
 
-// 프로필 URL에서 ID 추출
-function extractProfileId(text) {
-  const match = text.match(/profile\/([0-9a-f]{24})/);
-  return match ? match[1] : null;
-}
-
-async function searchUser(inputText) {
-  const result = document.getElementById("result");
-  result.innerHTML = "<p>⏳ 불러오는 중...</p>";
-
-  let userId = extractProfileId(inputText);
-  let apiUrl;
-
-  if (userId) {
-    // 프로필 URL을 입력한 경우
-    apiUrl = `https://playentry.org/api/user/${userId}`;
-  } else {
-    // 닉네임을 입력한 경우
-    apiUrl = `https://playentry.org/api/user?url=${encodeURIComponent(inputText)}`;
-  }
-
-  try {
-    const res = await fetch(apiUrl);
-
-    if (!res.ok) {
-      result.innerHTML = "<p>❌ 유저를 찾을 수 없습니다.</p>";
+  searchBtn.addEventListener("click", () => {
+    const username = input.value.trim();
+    if (!username) {
+      alert("닉네임을 입력해주세요!");
       return;
     }
+    fetchUser(username);
+  });
+});
 
-    const user = await res.json();
+/**
+ * 엔트리 서버는 CORS 때문에 브라우저에서 직접 정보를 가져올 수 없음.
+ * 그래서 현재는 표시용 UI만 만들고,
+ * 서버 프록시 쓰면 실제 데이터 연동 가능.
+ */
+function fetchUser(username) {
+  const resultBox = document.getElementById("result");
 
-    result.innerHTML = `
-      <div class="card">
-        <img src="${user.profileImage}" class="avatar" alt="프로필 이미지">
-        <h2>${user.nickname}</h2>
-        <p style="color:#777">@${user.username}</p>
+  // 엔트리 프로필 URL (유저 ID는 없으므로 닉네임만 표시)
+  const fakeProfileUrl = `https://playentry.org/profile/${username}`;
 
-        <div class="stats">
-          <div><b>${user.projectsLength}</b><br>작품</div>
-          <div><b>${user.studiesLength}</b><br>스터디</div>
-          <div><b>${user.communitiesLength}</b><br>커뮤니티</div>
-        </div>
+  // 출력되는 UI
+  resultBox.innerHTML = `
+    <div class="card">
+      <div class="pfp"></div>
+      <h2>${username}</h2>
 
-        <div class="stats" style="margin-top: 15px;">
-          <div><b>${user.followers}</b><br>팔로워</div>
-          <div><b>${user.followings}</b><br>팔로잉</div>
-          <div><b>${user.bookmarksLength ?? 0}</b><br>북마크</div>
-        </div>
-
-        <a class="open-profile" href="https://playentry.org/profile/${user._id}" target="_blank">
-          프로필 열기
-        </a>
+      <div class="info">
+        <p><strong>작품 수:</strong> (서버 필요)</p>
+        <p><strong>팔로워:</strong> (서버 필요)</p>
+        <p><strong>팔로잉:</strong> (서버 필요)</p>
       </div>
-    `;
-  } catch (e) {
-    console.error(e);
-    result.innerHTML = `<p>⚠ 오류 발생: ${e.message}</p>`;
-  }
+
+      <a class="goto" href="${fakeProfileUrl}" target="_blank">
+        엔트리 프로필 방문하기
+      </a>
+    </div>
+  `;
 }
