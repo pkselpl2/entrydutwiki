@@ -1,127 +1,79 @@
-/* 전체 기본 설정 */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Pretendard', Arial, sans-serif;
-    background: #f3f4f6;
+  font-family: Arial, sans-serif;
+  background: #eef7ff;
+  margin: 0;
+  padding: 0;
 }
 
-/* 상단 제목 */
-header {
-    background: #4f46e5;
-    padding: 20px;
-    text-align: center;
-    color: white;
-    font-size: 26px;
-    font-weight: 700;
+.header {
+  background: #4baaff;
+  color: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* 검색 박스 */
+.logo {
+  height: 55px;
+}
+
 .search-box {
-    margin: 25px auto;
-    padding: 20px;
-    width: 90%;
-    max-width: 700px;
-    background: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin: 20px auto;
+  width: 350px;
+  display: flex;
+  gap: 10px;
 }
 
 .search-box input {
-    width: 100%;
-    padding: 12px 15px;
-    font-size: 16px;
-    border: 2px solid #d1d5db;
-    border-radius: 10px;
-    outline: none;
-    transition: 0.2s;
-}
-
-.search-box input:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 2px rgba(79,70,229,0.2);
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #aaa;
 }
 
 .search-box button {
-    margin-top: 10px;
-    width: 100%;
-    padding: 12px;
-    background: #4f46e5;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    transition: 0.2s;
-    cursor: pointer;
+  padding: 10px 16px;
+  background: #4baaff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
-
 .search-box button:hover {
-    background: #4338ca;
+  background: #3492e0;
 }
 
-/* 결과 카드 */
-.result-card {
-    margin: 20px auto;
-    width: 90%;
-    max-width: 700px;
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+.card {
+  width: 400px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
-/* 프로필 이미지 */
-.profile-img {
-    width: 90px;
-    height: 90px;
-    border-radius: 14px;
-    background: #e5e7eb;
-    background-size: cover;
-    background-position: center;
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #ddd;
+  margin-bottom: 10px;
 }
 
-/* 유저 정보 텍스트 */
-.user-info {
-    flex: 1;
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 15px;
 }
 
-.user-info h2 {
-    margin: 0;
-    font-size: 22px;
-}
-
-.user-info p {
-    margin: 3px 0;
-    color: #374151;
-}
-
-/* 로딩 표시 */
-.loading {
-    text-align: center;
-    font-size: 18px;
-    color: #4f46e5;
-    margin-top: 20px;
-}
-
-/* 오류 표시 */
-.error {
-    text-align: center;
-    color: #dc2626;
-    font-size: 18px;
-    margin-top: 20px;
-}
-
-/* 모바일 대응 */
-@media (max-width: 480px) {
-    .result-card {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .profile-img {
-        margin-bottom: 10px;
-    }
+.stats div {
+  background: #f3f9ff;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-size: 14px;
 }
