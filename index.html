@@ -2,32 +2,33 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TEAMKRIS가 만든 엔트리 유저 찾기 페이지!</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>엔트리 유저 찾기 | TEAMKRIS</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="header">
-    <img src="말하는 앞모습_1.svg" class="logo" alt="logo">
-    <h1>TEAMKRIS가 만든 엔트리 유저 찾기 페이지!</h1>
+
+  <!-- 헤더 -->
+  <header class="site-header">
+    <div class="header-left">
+      <img src="말하는 앞모습_1.svg" class="logo" alt="logo">
+      <h1>엔트리 유저 찾기</h1>
+    </div>
+
+    <nav class="header-nav">
+      <a href="/">홈</a>
+      <a href="https://github.com/pkselpl2/entrydutwiki" target="_blank">GitHub</a>
+    </nav>
   </header>
 
-  <div class="search-box">
+  <!-- 검색창 -->
+  <section class="search-section">
     <input type="text" id="usernameInput" placeholder="엔트리 닉네임 입력..." autocomplete="off">
     <button id="searchButton">검색</button>
-  </div>
-  <span id="username"></span>
-<span id="workCount"></span>
-<span id="followerCount"></span>
-<span id="followingCount"></span>
+  </section>
 
-<a id="profileLink" href="#" style="display:none;">엔트리 프로필 방문하기</a>
-
-<input id="search">
-<button id="searchBtn">검색</button>
-
-
-  <div id="result"></div>
+  <!-- 결과 박스 -->
+  <section id="result"></section>
 
   <script src="app.js"></script>
 </body>
