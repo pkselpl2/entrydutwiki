@@ -1,35 +1,109 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>엔트리 유저 찾기 | TEAMKRIS</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>teamkris가 만든 엔트리 유저 찾기</title>
+  <style>
+    body {
+      font-family: "Noto Sans KR", sans-serif;
+      margin: 0;
+      background: #f5f6f7;
+      text-align: center;
+    }
+
+    /* 헤더 */
+    .header {
+      background: white;
+      padding: 20px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      width: 180px;   /* 로고 크기 축소 */
+      height: auto;
+    }
+
+    /* 메인 */
+    .container {
+      margin-top: 60px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    /* 입력창 + 버튼 */
+    .input-box {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    input {
+      width: 280px;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 17px;
+      outline: none;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 17px;
+      background: #0086ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0069d6;
+    }
+
+    /* 푸터 링크 */
+    .footer {
+      margin-top: 40px;
+      font-size: 16px;
+    }
+
+    .footer a {
+      color: #0086ff;
+      text-decoration: none;
+    }
+
+  </style>
 </head>
 <body>
 
-  <!-- 헤더 -->
-  <header class="site-header">
-    <div class="header-left">
-      <img src="말하는 앞모습_1.svg" class="logo" alt="logo">
-      <h1>엔트리 유저 찾기</h1>
+  <div class="header">
+    <img class="logo" src="말하는 앞모습_1.svg" alt="엔트리 위키 로고">
+  </div>
+
+  <div class="container">
+    <h1>teamkris가 만든 엔트리 유저 찾기!</h1>
+
+    <div class="input-box">
+      <input id="nickname" type="text" placeholder="엔트리 닉네임 입력..." />
+      <button onclick="searchUser()">검색</button>
     </div>
 
-    <nav class="header-nav">
-      <a href="/">홈</a>
-      <a href="https://github.com/pkselpl2/entrydutwiki" target="_blank">GitHub</a>
-    </nav>
-  </header>
+    <div class="footer">
+      <a href="https://github.com/">홈 GitHub</a>
+    </div>
+  </div>
 
-  <!-- 검색창 -->
-  <section class="search-section">
-    <input type="text" id="usernameInput" placeholder="엔트리 닉네임 입력..." autocomplete="off">
-    <button id="searchButton">검색</button>
-  </section>
+  <script>
+    function searchUser() {
+      const name = document.getElementById("nickname").value.trim();
+      if (!name) return alert("닉네임을 입력하세요!");
 
-  <!-- 결과 박스 -->
-  <section id="result"></section>
+      location.href = `/user.html?name=${encodeURIComponent(name)}`;
+    }
+  </script>
 
-  <script src="app.js"></script>
 </body>
 </html>
