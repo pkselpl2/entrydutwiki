@@ -1,110 +1,70 @@
 body {
-  font-family: "Pretendard", sans-serif;
   margin: 0;
-  background: #f5f6fa;
-  color: #333;
+  font-family: "NanumSquare", sans-serif;
+  background: #f7f7f7;
 }
 
-/* ------ 헤더 ------ */
-.top-header {
-  background: white;
-  padding: 16px 24px;
-  border-bottom: 1px solid #ddd;
+/* 헤더 */
+header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
+  background: white;
+  padding: 12px 20px;
+  border-bottom: 1px solid #ddd;
 }
 
-.logo-area {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
+/* 로고 크기 정상화 */
 .logo {
-  width: 48px;
-  height: 48px;
+  height: 48px;   /* 로고 크기 정상 */
+  width: auto;
+}
+
+/* 네비게이션 */
+header nav a {
+  margin-left: 16px;
+  color: #444;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* 본문 */
+main {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 0 16px;
 }
 
 h1 {
-  font-size: 22px;
-  margin: 0;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-.menu a {
-  font-size: 16px;
-  margin-left: 16px;
-  color: #007aff;
-  text-decoration: none;
-}
-
-.menu a:hover {
-  text-decoration: underline;
-}
-
-/* ------ 검색창 ------ */
+/* 검색 UI */
 .search-box {
-  margin: 30px auto;
-  width: 90%;
-  max-width: 500px;
   display: flex;
   gap: 10px;
+  justify-content: center;
 }
 
 .search-box input {
-  flex: 1;
-  padding: 12px 14px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+  width: 60%;
+  padding: 14px;
+  font-size: 18px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
 }
 
 .search-box button {
-  padding: 12px 18px;
-  font-size: 16px;
+  padding: 14px 22px;
+  font-size: 18px;
   border: none;
-  background: #007aff;
+  background: #3b85ff;
   color: white;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
 .search-box button:hover {
-  background: #0062d6;
-}
-
-/* ------ 프로필 카드 ------ */
-.user-card {
-  background: white;
-  width: 90%;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-.user-card h2 {
-  margin: 0;
-  font-size: 28px;
-}
-
-.user-card p {
-  font-size: 18px;
-  margin: 8px 0;
-}
-
-.profileBtn {
-  display: inline-block;
-  background: #007aff;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 10px;
-  text-decoration: none;
-  margin-top: 10px;
-}
-
-.profileBtn:hover {
-  background: #005fcc;
+  background: #2d6fe0;
 }
