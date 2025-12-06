@@ -7,7 +7,7 @@ const searchBtn = document.getElementById("searchButton");
 const resultBox = document.getElementById("result");
 
 // Proxy 서버 URL
-const ENTRY_PROXY = "https://morning-hall-d0f6.kkammailbox.workers.dev/"; 
+const ENTRY_PROXY = "https://proxy-server.kkammailbox.workers.dev/"; 
 
 
 // ─────────────────────────────────────
