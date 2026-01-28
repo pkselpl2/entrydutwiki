@@ -1,32 +1,129 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>엔트리 프로필 찾기</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>엔트리 유저 찾기</title>
+<style>
+  /* 애플체 폰트 */
+  body { 
+    font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; 
+    background:#f4f4f9; 
+    color:#333; 
+    margin:0; 
+    padding:0; 
+  }
+
+  header { 
+    background:#4b6cf7; 
+    color:white; 
+    padding:20px; 
+    text-align:center; 
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header img {
+    width: 120px;
+    max-width: 30%; /* 화면이 작아지면 자동 축소 */
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  main { 
+    max-width:600px; 
+    margin:40px auto; 
+    padding:20px; 
+    background:white; 
+    border-radius:10px; 
+    box-shadow:0 4px 10px rgba(0,0,0,0.1); 
+  }
+
+  input { 
+    width: calc(100% - 120px); 
+    padding:10px; 
+    font-size:16px; 
+    border-radius:5px; 
+    border:1px solid #ccc; 
+  }
+
+  button { 
+    padding:10px 20px; 
+    font-size:16px; 
+    border:none; 
+    border-radius:5px; 
+    background:#4b6cf7; 
+    color:white; 
+    cursor:pointer; 
+    margin-left:5px; 
+  }
+
+  button:hover { background:#3a52d1; }
+
+  h2 { margin-top:30px; }
+  ul { list-style:none; padding-left:0; }
+  li { margin:5px 0; }
+  .history-btn { background:#eee; color:#333; margin-right:5px; border-radius:5px; padding:5px 10px; cursor:pointer;}
+  .history-btn:hover { background:#ddd; }
+</style>
 </head>
 <body>
 
-  <header>
-    <img src="말하는 앞모습_1.svg" alt="Logo" class="logo">
-    <nav>
-      <a href="/">제작자 마이페이지</a>
-      <a href="https://naver.me/xDJodTzn</a>
-    </nav>
-  </header>
+<header>
+  <!-- 로고 -->
+  <img src="말하는 앞모습_1.svg" alt="엔트리 유저 찾기 로고">
+  <h1>엔트리 유저 찾기 (구글 검색)</h1>
+  <p>닉네임 입력 후 검색 버튼 클릭 → 엔트리 프로필 검색</p>
+</header>
 
-  <main>
-    <h1>엔트리 유저 찾기ㅣteamkris_offcial</h1>
+<main>
+  <div>
+    <input type="text" id="nickname" placeholder="닉네임 입력">
+    <button onclick="searchUser()">검색</button>
+  </div>
 
-    <div class="search-box">
-      <input id="nickname" type="text" placeholder="엔트리 닉네임 입력..." />
-      <button id="searchBtn">검색</button>
-    </div>
+  <h2>최근 검색</h2>
+  <ul id="historyList"></ul>
+</main>
 
-    <div id="result"></div>
-  </main>
+<script>
+// 최근 검색 기록 불러오기
+let history = JSON.parse(localStorage.getItem('history')||'[]');
 
-  <script src="app.js"></script>
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  list.innerHTML = '';
+  history.slice(-10).reverse().forEach(nickname => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.textContent = nickname;
+    btn.className = 'history-btn';
+    btn.onclick = () => searchUser(nickname);
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+}
+renderHistory();
+
+// 검색 함수
+function searchUser(inputName) {
+  let nickname = inputName || document.getElementById('nickname').value.trim();
+  if(!nickname) return alert("닉네임 입력해");
+
+  // 최근 검색 기록 저장
+  if(!history.includes(nickname)) {
+    history.push(nickname);
+    localStorage.setItem('history', JSON.stringify(history));
+    renderHistory();
+  }
+
+  // 구글 검색 URL 생성
+  const query = encodeURIComponent(`${nickname} site:playentry.org/profile`);
+  const url = `https://www.google.com/search?q=${query}`;
+  window.open(url, '_blank');
+}
+</script>
+
 </body>
 </html>
