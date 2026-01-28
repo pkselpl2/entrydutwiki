@@ -26,9 +26,10 @@
 
   header img {
     width: 120px;
-    max-width: 30%; /* 화면이 작아지면 자동 축소 */
+    max-width: 30%;
     height: auto;
     margin-bottom: 10px;
+    cursor:pointer;
   }
 
   main { 
@@ -71,8 +72,8 @@
 <body>
 
 <header>
-  <!-- 로고 -->
-  <img src="말하는 앞모습_1.svg" alt="엔트리 유저 찾기 로고">
+  <!-- 로고: 클릭 시 첫 검색 기록 링크 이동 -->
+  <img src="무제241_20260128122600.png" alt="엔트리 유저 찾기 로고" id="logo">
   <h1>엔트리 유저 찾기 (구글 검색)</h1>
   <p>닉네임 입력 후 검색 버튼 클릭 → 엔트리 프로필 검색</p>
 </header>
@@ -89,8 +90,9 @@
 
 <script>
 // 최근 검색 기록 불러오기
-let history = JSON.parse(localStorage.getItem('history')||'[]');
+let history = JSON.parse(localStorage.getItem('history')||[]);
 
+// 최근 검색 목록 렌더링
 function renderHistory() {
   const list = document.getElementById('historyList');
   list.innerHTML = '';
@@ -106,23 +108,32 @@ function renderHistory() {
 }
 renderHistory();
 
-// 검색 함수
+// 닉네임 검색
 function searchUser(inputName) {
   let nickname = inputName || document.getElementById('nickname').value.trim();
-  if(!nickname) return alert("닉네임 입력해");
+  if(!nickname) return alert("닉네임 입력하세요....");
 
-  // 최근 검색 기록 저장
+  // 최근 검색 저장
   if(!history.includes(nickname)) {
     history.push(nickname);
     localStorage.setItem('history', JSON.stringify(history));
     renderHistory();
   }
 
-  // 구글 검색 URL 생성
+  // 구글 검색 URL
   const query = encodeURIComponent(`${nickname} site:playentry.org/profile`);
   const url = `https://www.google.com/search?q=${query}`;
   window.open(url, '_blank');
 }
+
+// 로고 클릭 시 첫 번째 검색 기록으로 이동
+document.getElementById('logo').addEventListener('click', () => {
+  if(history.length === 0) return alert("최근 검색 기록이 없습니다.");
+  const firstNickname = history[0];
+  const query = encodeURIComponent(`${firstNickname} site:playentry.org/profile`);
+  const url = `https://www.google.com/search?q=${query}`;
+  window.open(url, '_blank');
+});
 </script>
 
 </body>
