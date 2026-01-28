@@ -5,87 +5,101 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>엔트리 유저 찾기</title>
 <style>
-  /* San Francisco 애플체 + 볼드 적용 */
-  body { 
-    font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; 
-    background:#f4f4f9; 
-    color:#333; 
-    margin:0; 
-    padding:0; 
-    font-weight: bold; /* 전체 볼드 적용 */
+  /* 사이트 전체 San Francisco 체 + 볼드 */
+  * {
+    font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
   }
 
   header { 
-    background:#4b6cf7; 
-    color:white; 
-    padding:20px; 
-    text-align:center; 
-    display:flex;
+    background: #4b6cf7; 
+    color: white; 
+    padding: 20px; 
+    text-align: center; 
+    display: flex;
     flex-direction: column;
     align-items: center;
-    font-weight: bold;
   }
 
   header img {
-    width: 200px;        /* 로고 크기 확대 */
-    max-width: 80%;      /* 화면 작으면 80%까지 축소 */
+    width: 200px;
+    max-width: 80%;
     height: auto;
     margin-bottom: 10px;
-    cursor:pointer;
+    cursor: pointer;
   }
 
-  main { 
-    max-width:600px; 
-    margin:40px auto; 
-    padding:20px; 
-    background:white; 
-    border-radius:10px; 
-    box-shadow:0 4px 10px rgba(0,0,0,0.1); 
-    font-weight: bold;
+  h1, h2, p {
+    margin: 5px 0;
   }
 
-  input { 
-    width: calc(100% - 120px); 
-    padding:10px; 
-    font-size:16px; 
-    border-radius:5px; 
-    border:1px solid #ccc; 
-    font-weight: bold;
+  main {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
 
-  button { 
-    padding:10px 20px; 
-    font-size:16px; 
-    border:none; 
-    border-radius:5px; 
-    background:#4b6cf7; 
-    color:white; 
-    cursor:pointer; 
-    margin-left:5px; 
-    font-weight: bold;
+  input {
+    width: calc(100% - 120px);
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
   }
 
-  button:hover { background:#3a52d1; }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background: #4b6cf7;
+    color: white;
+    cursor: pointer;
+    margin-left: 5px;
+  }
 
-  h1, h2, p { font-weight: bold; } /* 제목과 문단도 볼드 유지 */
+  button:hover {
+    background: #3a52d1;
+  }
 
-  h2 { margin-top:30px; }
-  ul { list-style:none; padding-left:0; }
-  li { margin:5px 0; }
-  .history-btn { background:#eee; color:#333; margin-right:5px; border-radius:5px; padding:5px 10px; cursor:pointer; font-weight: bold;}
-  .history-btn:hover { background:#ddd; }
+  h2 { margin-top: 30px; }
+  ul { list-style: none; padding-left: 0; }
+  li { margin: 5px 0; }
+
+  .history-btn {
+    background: #eee;
+    color: #333;
+    margin-right: 5px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  .history-btn:hover { background: #ddd; }
 
   /* 반응형 */
   @media (max-width: 400px) {
     input { width: 100%; margin-bottom: 10px; }
-    button { width: 100%; margin-left: 0; margin-top:5px; }
+    button { width: 100%; margin-left: 0; margin-top: 5px; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <!-- 로고: 클릭 시 첫 검색 기록 링크 이동 -->
+  <!-- 로고 클릭 → 최근 검색 첫 링크 구글 검색 페이지 열기 -->
   <img src="무제241_20260128122600.png" alt="엔트리 유저 찾기 로고" id="logo">
   <h1>엔트리 유저 찾기 (구글 검색)</h1>
   <p>닉네임 입력 후 검색 버튼 클릭 → 엔트리 프로필 검색</p>
@@ -121,10 +135,10 @@ function renderHistory() {
 }
 renderHistory();
 
-// 닉네임 검색
+// 닉네임 검색 → 구글 검색 페이지 열기
 function searchUser(inputName) {
   let nickname = inputName || document.getElementById('nickname').value.trim();
-  if(!nickname) return alert("닉네임 입력해"무제241_20260128122600.png);
+  if(!nickname) return alert("닉네임 입력해");
 
   // 최근 검색 저장
   if(!history.includes(nickname)) {
@@ -139,7 +153,7 @@ function searchUser(inputName) {
   window.open(url, '_blank');
 }
 
-// 로고 클릭 시 첫 번째 검색 기록으로 이동
+// 로고 클릭 → 최근 검색 첫 링크 구글 검색 페이지 열기
 document.getElementById('logo').addEventListener('click', () => {
   if(history.length === 0) return alert("최근 검색 기록이 없습니다.");
   const firstNickname = history[0];
